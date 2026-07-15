@@ -49,7 +49,7 @@ const SITE = {
     {
       title: "AI-Driven Full-Stack & Web3",
       blurb:
-        "Building web apps and connecting them with RESTful APIs, Web3/blockchain, third-party services, and SSO.",
+        "Building AI-driven web apps and connecting them with RESTful APIs, Web3/blockchain, third-party services, and SSO.",
       chips: ["React", "Node.js", "RESTful API", "Web3", "SSO", "Integrations"],
     },
     {
