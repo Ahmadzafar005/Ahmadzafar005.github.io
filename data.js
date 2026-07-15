@@ -47,7 +47,7 @@ const SITE = {
       chips: ["AR", "VR", "Metaverse", "RT3D", "Simulations", "Unreal", "XR"],
     },
     {
-      title: "Full-Stack & Web3",
+      title: "AI-Driven Full-Stack & Web3",
       blurb:
         "Building web apps and connecting them with RESTful APIs, Web3/blockchain, third-party services, and SSO.",
       chips: ["React", "Node.js", "RESTful API", "Web3", "SSO", "Integrations"],
