@@ -3,41 +3,126 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Muhammad Ahmad Zafar — Project Portfolio</title>
-  <meta name="description" content="Project video portfolio" />
+  <title>Muhammad Ahmad Zafar — Game / AR-VR / Full-Stack Developer</title>
+  <meta name="description" content="Portfolio of Muhammad Ahmad Zafar — AI-driven full-stack developer, game developer, and technical project manager. 10+ years across games, AR/VR, and Web3." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <header class="site-header">
-    <div class="wrap">
-      <h1 class="name">Muhammad Ahmad Zafar</h1>
-      <p class="tagline">Software Developer &middot; Building things that work, one project at a time</p>
-      <p class="intro">
-        A collection of my projects with short demo videos. Feel free to reach out.
-      </p>
+  <!-- Preloader -->
+  <div id="preloader" class="preloader">
+    <div class="preloader-inner">
+      <div class="preloader-initials" id="preloader-initials">AZ</div>
+      <div class="preloader-bar"><span id="preloader-fill"></span></div>
+      <div class="preloader-count"><span id="preloader-count">0</span>%</div>
+    </div>
+  </div>
+
+  <!-- Decorative background glows -->
+  <div class="bg-glows" aria-hidden="true">
+    <span class="glow glow-1"></span>
+    <span class="glow glow-2"></span>
+    <span class="glow glow-3"></span>
+  </div>
+
+  <!-- Sticky nav -->
+  <header class="nav">
+    <div class="wrap nav-inner">
+      <a href="#top" class="brand" id="brand">AZ</a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="#about">About</a>
+        <a href="#work">Work</a>
+        <a href="#experience">Experience</a>
+        <a href="#contact">Contact</a>
+        <a href="resume.pdf" class="nav-resume" target="_blank" rel="noopener">Resume</a>
+      </nav>
     </div>
   </header>
 
-  <nav class="category-nav" aria-label="Project categories">
-    <div class="wrap">
-      <ul id="category-nav" class="nav-list">
-        <!-- Category buttons are injected by projects.js -->
-      </ul>
-    </div>
-  </nav>
+  <main id="top">
+    <!-- Hero -->
+    <section class="hero">
+      <div class="wrap hero-inner">
+        <p class="hero-hello reveal">Hello, I'm</p>
+        <h1 class="hero-name reveal" id="hero-name">Muhammad Ahmad Zafar</h1>
+        <p class="hero-role reveal">
+          <span class="hero-role-static">An</span>
+          <span class="hero-role-rotate" id="hero-rotate"></span>
+        </p>
+        <div class="hero-cta reveal">
+          <a href="#contact" class="btn btn-primary">Hire Me <span>&rarr;</span></a>
+          <a href="#work" class="btn btn-ghost">View Work <span>&rarr;</span></a>
+        </div>
+      </div>
+      <div class="marquee" aria-hidden="true"><div class="marquee-track" id="marquee-track"></div></div>
+    </section>
 
-  <main class="wrap">
-    <div id="projects" aria-label="Projects">
-      <!-- Category sections and cards are injected by projects.js -->
-    </div>
+    <!-- About -->
+    <section id="about" class="section about">
+      <div class="wrap">
+        <h2 class="section-title reveal"><span class="idx">01</span> About <span class="accent">Me</span></h2>
+        <p class="about-text reveal" id="about-text"></p>
+        <div class="about-stats reveal" id="about-stats"></div>
+      </div>
+    </section>
+
+    <!-- What I Do -->
+    <section id="what" class="section what">
+      <div class="wrap">
+        <h2 class="section-title reveal"><span class="idx">02</span> What I <span class="accent">Do</span></h2>
+        <div class="what-grid" id="what-grid"></div>
+      </div>
+    </section>
+
+    <!-- Experience -->
+    <section id="experience" class="section experience">
+      <div class="wrap">
+        <h2 class="section-title reveal"><span class="idx">03</span> Career &amp; <span class="accent">Experience</span></h2>
+        <div class="timeline" id="timeline"></div>
+      </div>
+    </section>
+
+    <!-- Work -->
+    <section id="work" class="section work">
+      <div class="wrap">
+        <h2 class="section-title reveal"><span class="idx">04</span> My <span class="accent">Work</span></h2>
+        <p class="section-sub reveal">Recorded demos of projects I've built — grouped by platform.</p>
+        <ul id="category-nav" class="nav-list" aria-label="Project categories"></ul>
+        <div id="projects"></div>
+      </div>
+    </section>
+
+    <!-- Tech stack -->
+    <section id="stack" class="section stack">
+      <div class="wrap">
+        <h2 class="section-title reveal"><span class="idx">05</span> Tech <span class="accent">Stack</span></h2>
+        <div class="pill-grid reveal" id="pill-grid"></div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="section contact">
+      <div class="wrap">
+        <h2 class="section-title reveal"><span class="idx">06</span> Get in <span class="accent">Touch</span></h2>
+        <div class="contact-grid" id="contact-grid"></div>
+        <div class="contact-cta reveal">
+          <a href="resume.pdf" class="btn btn-primary" target="_blank" rel="noopener">Download CV <span>&darr;</span></a>
+        </div>
+      </div>
+    </section>
   </main>
 
-  <footer class="site-footer">
-    <div class="wrap">
-      <p>&copy; <span id="year"></span> Muhammad Ahmad Zafar</p>
+  <footer class="footer">
+    <div class="wrap footer-inner">
+      <p>Designed &amp; developed by <strong>Muhammad Ahmad Zafar</strong></p>
+      <p class="footer-year">&copy; <span id="year"></span></p>
     </div>
   </footer>
 
-  <script src="projects.js"></script>
+  <script src="data.js"></script>
+  <script src="main.js"></script>
 </body>
 </html>
