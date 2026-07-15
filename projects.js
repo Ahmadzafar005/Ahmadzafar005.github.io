@@ -220,9 +220,18 @@ function createCard(video) {
   return card;
 }
 
+// Turn a category name into a URL-safe id, e.g. "AR & 3D" -> "ar-3d".
+function slugify(name) {
+  return String(name)
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
 function createCategorySection(category) {
   const section = document.createElement("section");
   section.className = "category";
+  section.id = slugify(category.name);
 
   const heading = document.createElement("h2");
   heading.className = "category-title";
@@ -245,8 +254,51 @@ function renderCategories() {
   container.appendChild(fragment);
 }
 
+// Build the sticky category buttons that jump to each section.
+function renderCategoryNav() {
+  const list = document.getElementById("category-nav");
+  if (!list) return;
+  categories.forEach((c) => {
+    const id = slugify(c.name);
+    const li = document.createElement("li");
+    const link = document.createElement("a");
+    link.href = "#" + id;
+    link.className = "nav-btn";
+    link.textContent = c.name;
+    link.dataset.target = id;
+    li.appendChild(link);
+    list.appendChild(li);
+  });
+}
+
+// Highlight the button for whichever section is currently in view.
+function setupScrollSpy() {
+  const links = Array.from(document.querySelectorAll(".nav-btn"));
+  if (!links.length || !("IntersectionObserver" in window)) return;
+
+  const byId = {};
+  links.forEach((l) => (byId[l.dataset.target] = l));
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          links.forEach((l) => l.classList.remove("is-active"));
+          const active = byId[entry.target.id];
+          if (active) active.classList.add("is-active");
+        }
+      });
+    },
+    { rootMargin: "-45% 0px -50% 0px", threshold: 0 }
+  );
+
+  document.querySelectorAll(".category").forEach((sec) => observer.observe(sec));
+}
+
 document.addEventListener("DOMContentLoaded", function () {
+  renderCategoryNav();
   renderCategories();
+  setupScrollSpy();
   const yearEl = document.getElementById("year");
   if (yearEl) yearEl.textContent = String(new Date().getFullYear());
 });

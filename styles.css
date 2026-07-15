@@ -25,7 +25,10 @@
 
 * { box-sizing: border-box; }
 
-html { -webkit-text-size-adjust: 100%; }
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
 
 body {
   margin: 0;
@@ -68,10 +71,58 @@ body {
   max-width: 60ch;
 }
 
+/* ---- Sticky category nav ---- */
+.category-nav {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: color-mix(in srgb, var(--bg) 88%, transparent);
+  backdrop-filter: saturate(180%) blur(10px);
+  -webkit-backdrop-filter: saturate(180%) blur(10px);
+  border-bottom: 1px solid var(--border);
+}
+
+.nav-list {
+  list-style: none;
+  margin: 0;
+  padding: 12px 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.nav-btn {
+  display: inline-block;
+  padding: 8px 16px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease, transform 0.1s ease;
+}
+
+.nav-btn:hover {
+  border-color: var(--accent);
+  transform: translateY(-1px);
+}
+
+.nav-btn.is-active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
 /* ---- Categories + projects grid ---- */
 main { padding: 40px 0 8px; }
 
-.category { margin-bottom: 48px; }
+.category {
+  margin-bottom: 48px;
+  scroll-margin-top: 76px; /* keep heading clear of the sticky nav */
+}
 
 .category-title {
   margin: 0 0 20px;
