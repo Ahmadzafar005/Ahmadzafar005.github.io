@@ -202,8 +202,8 @@ const SITE = {
     email: "ahmadzafar005@gmail.com",
     phone: "+92 300 4344489",
     location: "Lahore, Pakistan",
-    github: "https://github.com/Ahmadzafar005",
-    linkedin: "", // TODO: add your LinkedIn profile URL
+    github: "", // hidden — LinkedIn shown instead
+    linkedin: "https://www.linkedin.com/in/ahmad-zafar-686254b0",
     resume: "resume.pdf",
   },
 };
