@@ -204,6 +204,5 @@ const SITE = {
     location: "Lahore, Pakistan",
     github: "", // hidden — LinkedIn shown instead
     linkedin: "https://www.linkedin.com/in/ahmad-zafar-686254b0",
-    resume: "resume.pdf",
   },
 };
