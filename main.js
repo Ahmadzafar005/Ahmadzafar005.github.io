@@ -21,6 +21,11 @@ if ("scrollRestoration" in history) history.scrollRestoration = "manual";
 if (window.location.hash) {
   history.replaceState(null, "", window.location.pathname + window.location.search);
 }
+// Back-forward cache (mobile): scripts don't re-run when the tab is restored, so
+// the boot-time scroll reset never fires. pageshow catches that restore case.
+window.addEventListener("pageshow", function (e) {
+  if (e.persisted) window.scrollTo(0, 0);
+});
 
 // Category name -> URL-safe id, e.g. "AR & 3D" -> "ar-3d".
 function slugify(name) {
