@@ -107,6 +107,10 @@ The full batch script used for all 25 is in the session scratchpad (`gen_thumbs.
 - Fonts: **Space Grotesk** (display) + **Inter** (body), via Google Fonts `<link>`
 - Motion: animated preloader, rotating hero title, CSS marquee, IntersectionObserver scroll-reveal
   (`.reveal` → `.in-view`) and category scroll-spy. All respect `prefers-reduced-motion`.
+- Responsive: mobile-first grids expand at 640/720px breakpoints; a `@media (max-width: 720px)` block
+  collapses the top nav into a **hamburger menu** (`.nav-toggle` in `index.html`, toggled by
+  `setupNav()` in `main.js`, dropdown styled in `styles.css`) and makes the Work category bar
+  horizontally scrollable. Verify at 390px (see below).
 
 ## Sections (top → bottom)
 Preloader → sticky nav → hero (rotating title + marquee) → About → What I Do (4 pillars) →

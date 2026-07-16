@@ -53,6 +53,34 @@ function runPreloader() {
   }, 90);
 }
 
+/* ---------- Mobile nav (hamburger) ---------- */
+function setupNav() {
+  const toggle = $("#nav-toggle");
+  const links = $("#nav-links");
+  if (!toggle || !links) return;
+
+  const close = () => {
+    toggle.setAttribute("aria-expanded", "false");
+    links.classList.remove("open");
+  };
+
+  toggle.addEventListener("click", (e) => {
+    e.stopPropagation();
+    const open = toggle.getAttribute("aria-expanded") === "true";
+    toggle.setAttribute("aria-expanded", String(!open));
+    links.classList.toggle("open", !open);
+  });
+
+  // Close after tapping a link, when clicking outside, or when resizing to desktop.
+  links.querySelectorAll("a").forEach((a) => a.addEventListener("click", close));
+  document.addEventListener("click", (e) => {
+    if (!links.contains(e.target) && !toggle.contains(e.target)) close();
+  });
+  window.addEventListener("resize", () => {
+    if (window.innerWidth > 720) close();
+  });
+}
+
 /* ---------- Rotating hero title + marquee ---------- */
 function setupHero() {
   const nameEl = $("#hero-name");
@@ -348,6 +376,7 @@ function setupScrollSpy() {
 
 /* ---------- Boot ---------- */
 document.addEventListener("DOMContentLoaded", function () {
+  setupNav();
   setupHero();
   renderAbout();
   renderWhatIDo();

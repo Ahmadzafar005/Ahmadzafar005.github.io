@@ -121,6 +121,18 @@ a { color: inherit; }
 }
 .nav-resume:hover { background: var(--accent) !important; }
 
+/* Hamburger toggle — hidden on desktop, shown on mobile via media query below. */
+.nav-toggle {
+  display: none; flex-direction: column; justify-content: center; gap: 5px;
+  width: 44px; height: 44px; padding: 0 10px; border-radius: 11px;
+  border: 1px solid var(--border); background: var(--surface); cursor: pointer;
+}
+.nav-toggle span { display: block; width: 22px; height: 2px; border-radius: 2px; background: var(--text);
+  transition: transform 0.22s ease, opacity 0.22s ease; }
+.nav-toggle[aria-expanded="true"] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+.nav-toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
 /* ---------- Buttons ---------- */
 .btn {
   display: inline-flex; align-items: center; gap: 8px;
@@ -316,6 +328,46 @@ a.contact-value:hover { color: var(--accent-2); }
 .footer { border-top: 1px solid var(--border); padding: 30px 0; color: var(--muted); }
 .footer-inner { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; font-size: 0.9rem; }
 .footer strong { color: var(--text); }
+
+/* ---------- Mobile / responsive ---------- */
+@media (max-width: 720px) {
+  .nav { height: auto; min-height: var(--nav-h); }
+  .nav-inner { position: relative; }
+  .nav-toggle { display: inline-flex; }
+
+  /* Nav links collapse into a dropdown panel toggled by the hamburger. */
+  .nav-links {
+    position: absolute; top: calc(100% + 12px); left: 0; right: 0;
+    flex-direction: column; align-items: stretch; gap: 4px;
+    padding: 10px; border: 1px solid var(--border); border-radius: 14px;
+    background: color-mix(in srgb, var(--bg) 94%, transparent);
+    backdrop-filter: saturate(180%) blur(16px); -webkit-backdrop-filter: saturate(180%) blur(16px);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.55);
+    opacity: 0; visibility: hidden; transform: translateY(-8px);
+    transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease;
+  }
+  .nav-links.open { opacity: 1; visibility: visible; transform: none; }
+  .nav-links a { padding: 12px 14px; font-size: 1rem; border-radius: 10px; }
+  .nav-resume { text-align: center; }
+
+  /* Tighter vertical rhythm on small screens. */
+  .section { padding: 56px 0; }
+  .hero { padding: clamp(48px, 12vh, 90px) 0 44px; }
+  .marquee { margin-top: 48px; }
+  .marquee-seg { font-size: 1.2rem; }
+  .category { margin-bottom: 40px; }
+
+  /* Keep the sticky Work category bar usable and edge-to-edge scrollable. */
+  .nav-list { flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch;
+    scrollbar-width: none; margin-left: -22px; margin-right: -22px; padding-left: 22px; padding-right: 22px; }
+  .nav-list::-webkit-scrollbar { display: none; }
+}
+
+@media (max-width: 400px) {
+  .wrap { padding: 0 16px; }
+  .nav-list { margin-left: -16px; margin-right: -16px; padding-left: 16px; padding-right: 16px; }
+  .btn { padding: 11px 18px; font-size: 0.9rem; }
+}
 
 /* ---------- Scroll reveal ---------- */
 .reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.6s ease, transform 0.6s ease; }
