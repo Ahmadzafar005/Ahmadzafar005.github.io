@@ -46,16 +46,23 @@ SITE = {
   titles: [...],              // rotating hero titles + marquee
   about, aboutStats: [...],   // About Me paragraph + stat tiles
   whatIDo: [{title, blurb, chips[]}],   // 4 pillar cards
-  experience: [{period, role, org, blurb, isEducation?}],  // timeline (newest first; last = education)
-  categories: [{name, tag, tech[], videos: [{title, description, driveFileId}]}],  // the 25 videos
+  experience: [{period, role, org, blurb, isEducation?}],  // jobs newest-first; isEducation:true → Education group
+  categories: [{name, tag, tech[], videos: [{title, description, driveFileId}]}],  // 25 videos; array order = on-page order
   techStack: [...],           // pill grid labels
   contact: {email, phone, location, github, linkedin, resume},
 }
 ```
 
+## Experience & Education
+`renderTimeline()` in `main.js` splits `SITE.experience`: normal jobs render in the `#timeline`
+list; any entry with `isEducation: true` renders in a **separate `#education` list** under an
+"Education" subheading (`.tl-subhead`). Both `#timeline` and `#education` divs live in the
+Experience `<section>` in `index.html`. So education is data-driven — just set `isEducation: true`.
+
 ## The videos (Work section)
-25 project videos across 4 categories:
-- **2D** (9) · **AR & 3D** (7) · **VR** (3) · **Web3 / WebGL** (6)
+25 project videos across 4 categories. **On-page order = order of `SITE.categories`** (both the
+category nav buttons and the sections render from that array). Current order and counts:
+- **VR** (3) · **AR & 3D** (7) · **Web3 / WebGL** (6) · **2D** (9)
 
 Each is a Google Drive file embedded via `https://drive.google.com/file/d/<driveFileId>/preview`
 (handled in `main.js` → `createVideoFrame`). `driveFileId` is the part between `/d/` and `/view`
@@ -111,10 +118,21 @@ The full batch script used for all 25 is in the session scratchpad (`gen_thumbs.
   collapses the top nav into a **hamburger menu** (`.nav-toggle` in `index.html`, toggled by
   `setupNav()` in `main.js`, dropdown styled in `styles.css`) and makes the Work category bar
   horizontally scrollable. Verify at 390px (see below).
+- Always opens at the top: `main.js` sets `history.scrollRestoration = "manual"`, strips any stale
+  `#hash` on load, and forces `scrollTo(0,0)` on boot, when the preloader finishes, and on
+  `pageshow` with `event.persisted` (the **bfcache** restore case — reopening a mobile tab restores
+  the page frozen without re-running scripts, which is why it used to reappear mid-page at Work).
 
 ## Sections (top → bottom)
-Preloader → sticky nav → hero (rotating title + marquee) → About → What I Do (4 pillars) →
-Experience timeline → Work (category buttons + video cards) → Tech Stack (pills) → Contact → footer.
+Preloader → sticky nav (hamburger on mobile) → hero (rotating title + marquee) → About →
+What I Do (4 pillars) → Experience + Education → Work (category buttons + video cards) →
+Tech Stack (pills) → Contact → footer.
+
+## Cache-busting
+`index.html` loads the assets with a version query — `styles.css?v=2`, `data.js?v=2`, `main.js?v=2`.
+GitHub Pages serves everything with `Cache-Control: max-age=600`, and mobile browsers hold JS even
+longer, so **bump the `?v=` number in `index.html` whenever you change `styles.css`/`main.js`/`data.js`**
+to force visitors' browsers to fetch the new file.
 
 ---
 
@@ -129,6 +147,16 @@ GitHub Pages auto-rebuilds (~1 min). Check build status:
 ```bash
 gh api "repos/Ahmadzafar005/Ahmadzafar005.github.io/pages/builds/latest"   # status: built
 ```
+
+### Push auth gotcha (important)
+The local git `user.name` is **`Ahmad-AZ-Bit`**, whose stored HTTPS credential lacks push rights to
+this repo — a plain `git push` may **hang** on a credential prompt and then fail with
+`Permission ... denied to Ahmad-AZ-Bit` (403). `gh` is authed as **Ahmadzafar005** (has `repo`
+scope), so push through its token instead:
+```bash
+git push "https://x-access-token:$(gh auth token)@github.com/Ahmadzafar005/Ahmadzafar005.github.io.git" main
+```
+Larger pushes (e.g. adding `thumbs/` images) also like `-c http.version=HTTP/1.1 -c http.postBuffer=524288000`.
 
 ### PowerShell gotchas (this is a Windows repo)
 - `git push`/`gh` print to stderr; PowerShell wraps that as a red "error" even on success —
