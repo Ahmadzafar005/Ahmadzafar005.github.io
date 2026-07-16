@@ -76,6 +76,19 @@ ffmpeg -y -i "input.mp4" -c:v copy -an "muted/input.mp4"   # lossless, drops aud
 Then re-upload to Drive (fresh upload → new FILE_ID → update it in data.js; "Manage versions" keeps
 the same ID but is often greyed out for these files). The **2D and AR videos are already muted**.
 
+### Video thumbnails (`thumbs/`)
+Each video card shows a still **thumbnail + play badge** (facade pattern in `main.js` →
+`createVideoFrame`); the heavy Drive `/preview` iframe loads only when the visitor clicks. The
+thumbnail files live in `thumbs/<FILE_ID>.jpg` — one per video, pulled from Drive's own
+auto-generated frame at `https://drive.google.com/thumbnail?id=<FILE_ID>&sz=w1000`. The `<img src>`
+is derived from `driveFileId`, so **no data.js change is needed** — just drop the file in `thumbs/`.
+If a local file is missing, the card falls back to the live Drive thumbnail URL automatically.
+
+Regenerate one after adding/replacing a video:
+```
+curl -sL "https://drive.google.com/thumbnail?id=FILE_ID&sz=w1000" -o "thumbs/FILE_ID.jpg"
+```
+
 ---
 
 ## Design system (styles.css)

@@ -158,27 +158,51 @@ function renderTimeline() {
 }
 
 /* ---------- Work: category nav + project cards ---------- */
-function createVideoFrame(driveFileId) {
+// Shows a local thumbnail (thumbs/<FILE_ID>.jpg) with a play badge; the heavy
+// Drive iframe is only loaded once the visitor clicks (facade pattern).
+function createVideoFrame(video) {
   const wrap = el("div", "video");
+  const driveFileId = video.driveFileId;
   const hasId = driveFileId && driveFileId !== "PASTE_FILE_ID_HERE";
   if (!hasId) {
     wrap.classList.add("video--empty");
     wrap.textContent = "Add this video's Google Drive FILE_ID in data.js to show it here.";
     return wrap;
   }
-  const iframe = document.createElement("iframe");
-  iframe.src = "https://drive.google.com/file/d/" + driveFileId + "/preview";
-  iframe.setAttribute("allow", "autoplay");
-  iframe.setAttribute("allowfullscreen", "");
-  iframe.setAttribute("loading", "lazy");
-  iframe.title = "Project video";
-  wrap.appendChild(iframe);
+
+  const poster = el("button", "video-poster");
+  poster.type = "button";
+  poster.setAttribute("aria-label", "Play video: " + (video.title || "project"));
+
+  const img = el("img", "video-thumb");
+  img.src = "thumbs/" + driveFileId + ".jpg";
+  img.alt = (video.title || "Project") + " — video thumbnail";
+  img.loading = "lazy";
+  // Fall back to Drive's live thumbnail if the local file is missing.
+  img.addEventListener("error", function onErr() {
+    img.removeEventListener("error", onErr);
+    img.src = "https://drive.google.com/thumbnail?id=" + driveFileId + "&sz=w1000";
+  });
+  poster.appendChild(img);
+  poster.appendChild(el("span", "video-play"));
+
+  poster.addEventListener("click", () => {
+    const iframe = document.createElement("iframe");
+    iframe.src = "https://drive.google.com/file/d/" + driveFileId + "/preview";
+    iframe.setAttribute("allow", "autoplay; fullscreen");
+    iframe.setAttribute("allowfullscreen", "");
+    iframe.title = video.title || "Project video";
+    wrap.innerHTML = "";
+    wrap.appendChild(iframe);
+  });
+
+  wrap.appendChild(poster);
   return wrap;
 }
 
 function createCard(video, number) {
   const card = el("article", "card reveal");
-  card.appendChild(createVideoFrame(video.driveFileId));
+  card.appendChild(createVideoFrame(video));
   const body = el("div", "card-body");
   const head = el("div", "card-head");
   head.appendChild(el("span", "card-num", String(number).padStart(2, "0")));
