@@ -27,7 +27,7 @@ const SITE = {
 
   aboutStats: [
     { value: "10+", label: "Years experience" },
-    { value: "25+", label: "Projects shipped" },
+    { value: "100+", label: "Projects shipped" },
     { value: "AR·VR·Web3", label: "Specialties" },
     { value: "BSCS", label: "Qarshi University" },
   ],
