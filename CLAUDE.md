@@ -79,15 +79,25 @@ the same ID but is often greyed out for these files). The **2D and AR videos are
 ### Video thumbnails (`thumbs/`)
 Each video card shows a still **thumbnail + play badge** (facade pattern in `main.js` →
 `createVideoFrame`); the heavy Drive `/preview` iframe loads only when the visitor clicks. The
-thumbnail files live in `thumbs/<FILE_ID>.jpg` — one per video, pulled from Drive's own
-auto-generated frame at `https://drive.google.com/thumbnail?id=<FILE_ID>&sz=w1000`. The `<img src>`
-is derived from `driveFileId`, so **no data.js change is needed** — just drop the file in `thumbs/`.
-If a local file is missing, the card falls back to the live Drive thumbnail URL automatically.
+thumbnail files live in `thumbs/<FILE_ID>.jpg` — one per video. They are **frames grabbed from the
+middle of each video** (not Drive's auto first-frame, which was often a splash/permission/menu
+screen). The `<img src>` is derived from `driveFileId`, so **no data.js change is needed** — just
+drop the file in `thumbs/`. If a local file is missing, the card falls back to the live Drive
+thumbnail URL (`https://drive.google.com/thumbnail?id=<FILE_ID>&sz=w1000`) automatically.
 
-Regenerate one after adding/replacing a video:
+Regenerate a mid-video frame (ffmpeg + ffprobe required; stream-seeks over HTTP, no full download):
+```bash
+ID=FILE_ID
+# Resolve the Drive download URL (handles the large-file "virus scan" confirm page):
+PAGE=$(curl -sL -c ck.txt -b ck.txt "https://drive.google.com/uc?export=download&id=$ID")
+UUID=$(echo "$PAGE" | grep -oE 'name="uuid" value="[^"]*"' | sed -E 's/.*value="([^"]*)".*/\1/')
+URL="https://drive.usercontent.google.com/download?id=$ID&export=download&confirm=t&uuid=$UUID"
+DUR=$(ffprobe -v error -show_entries format=duration -of csv=p=0 "$URL")
+MID=$(awk "BEGIN{printf \"%.2f\", $DUR/2}")
+ffmpeg -y -v error -ss "$MID" -i "$URL" -frames:v 1 -q:v 3 -vf "scale='min(1000,iw)':-1" "thumbs/$ID.jpg"
 ```
-curl -sL "https://drive.google.com/thumbnail?id=FILE_ID&sz=w1000" -o "thumbs/FILE_ID.jpg"
-```
+If the midpoint lands on a menu/black frame, re-run with a different fraction (e.g. `$DUR*0.4`).
+The full batch script used for all 25 is in the session scratchpad (`gen_thumbs.sh`).
 
 ---
 
