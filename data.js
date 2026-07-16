@@ -136,19 +136,13 @@ const SITE = {
   // Project videos, grouped by category (reused from the live site).
   categories: [
     {
-      name: "2D",
-      tag: "2D Games",
-      tech: ["Unity 3D", "C#", "2D", "Mobile"],
+      name: "VR",
+      tag: "Virtual Reality",
+      tech: ["Unity 3D", "C#", "XR", "Oculus"],
       videos: [
-        { title: "Car Clean Up", description: "A 2D cleaning game where players scrub and restore a dirty car.", driveFileId: "1WGS1gX207DQyZWWZE4vOwaKO-zeYWbWA" },
-        { title: "Coloring Book", description: "An interactive coloring game with a paint-and-fill mechanic.", driveFileId: "1yTQtmSUxHG5g_XUu8LvcHGMt3C31NvjH" },
-        { title: "Count to Fill 10", description: "An educational counting game that teaches numbers up to ten.", driveFileId: "1UCPuX0k1T5XcrZajVk64Sm4LPd6SRfj-" },
-        { title: "Emoji Bubble", description: "A casual bubble-popping game built around emoji targets.", driveFileId: "1VL2Yzy35lXLI3-kd2AXmrKSr8W3BWB6v" },
-        { title: "Fidget Spinner", description: "A physics-based fidget spinner toy with spin and momentum.", driveFileId: "13oD3gx-yh81V8Wxv1F5aDnJpDv-HBepx" },
-        { title: "Opposite", description: "A learning game that matches words with their opposites.", driveFileId: "1vqvCqQCT0tAIBwUmqVgAEpdx-LiIfueC" },
-        { title: "Parts of Speech", description: "An English-learning game for identifying parts of speech.", driveFileId: "17IqfYHc0cqAYyXWaxZG1nOySTg06Mi1P" },
-        { title: "Piñata Master", description: "A tap-and-smash game where players break open piñatas.", driveFileId: "12EDrXRxohAus763hODYCGWi8FOSn0UDj" },
-        { title: "Sentences", description: "A word-arrangement game for building correct sentences.", driveFileId: "1-K4XDfWBhZGDGoBoxwdpA0zim-8R7p-7" },
+        { title: "Agelore's Fantasy — Demo 1", description: "An immersive VR fantasy adventure experience.", driveFileId: "1O99Ijy2ekT9QS-TaJKtrz4KUQp4ji9o3" },
+        { title: "Agelore's Fantasy — Demo 2", description: "A later build of the VR fantasy adventure showing new gameplay.", driveFileId: "1V-qCkIbYyUv0xtZgRiPVHP8z4idqI7Q7" },
+        { title: "CPR Simulation", description: "A VR medical training simulation for practicing CPR procedures.", driveFileId: "1YJ2JQDlHto4SbisFCVsOsqGWAkCeVO3R" },
       ],
     },
     {
@@ -166,16 +160,6 @@ const SITE = {
       ],
     },
     {
-      name: "VR",
-      tag: "Virtual Reality",
-      tech: ["Unity 3D", "C#", "XR", "Oculus"],
-      videos: [
-        { title: "Agelore's Fantasy — Demo 1", description: "An immersive VR fantasy adventure experience.", driveFileId: "1O99Ijy2ekT9QS-TaJKtrz4KUQp4ji9o3" },
-        { title: "Agelore's Fantasy — Demo 2", description: "A later build of the VR fantasy adventure showing new gameplay.", driveFileId: "1V-qCkIbYyUv0xtZgRiPVHP8z4idqI7Q7" },
-        { title: "CPR Simulation", description: "A VR medical training simulation for practicing CPR procedures.", driveFileId: "1YJ2JQDlHto4SbisFCVsOsqGWAkCeVO3R" },
-      ],
-    },
-    {
       name: "Web3 / WebGL",
       tag: "Web3 / WebGL",
       tech: ["Unity WebGL", "Web3.js", "Blockchain", "Metaverse"],
@@ -186,6 +170,22 @@ const SITE = {
         { title: "Jetpack Hyperleague — Single Player", description: "The single-player mode of the WebGL jetpack racing game.", driveFileId: "1DX7V6WC5ci-qCV_18JsM-Jh925ZU0AVj" },
         { title: "Virtua Metaverse — Cardano Island Land Claim (1)", description: "A Web3 metaverse land-claim flow on the Cardano blockchain.", driveFileId: "1qCfmjTkDBXvA2Xdlmi-n7ZEZLMwRx3p2" },
         { title: "Virtua Metaverse — Cardano Island Land Claim (2)", description: "A second demo of the Cardano-based metaverse land-claim experience.", driveFileId: "1WXLn_W_Zka5qq-vusmqU_HYoiL1XpYDj" },
+      ],
+    },
+    {
+      name: "2D",
+      tag: "2D Games",
+      tech: ["Unity 3D", "C#", "2D", "Mobile"],
+      videos: [
+        { title: "Car Clean Up", description: "A 2D cleaning game where players scrub and restore a dirty car.", driveFileId: "1WGS1gX207DQyZWWZE4vOwaKO-zeYWbWA" },
+        { title: "Coloring Book", description: "An interactive coloring game with a paint-and-fill mechanic.", driveFileId: "1yTQtmSUxHG5g_XUu8LvcHGMt3C31NvjH" },
+        { title: "Count to Fill 10", description: "An educational counting game that teaches numbers up to ten.", driveFileId: "1UCPuX0k1T5XcrZajVk64Sm4LPd6SRfj-" },
+        { title: "Emoji Bubble", description: "A casual bubble-popping game built around emoji targets.", driveFileId: "1VL2Yzy35lXLI3-kd2AXmrKSr8W3BWB6v" },
+        { title: "Fidget Spinner", description: "A physics-based fidget spinner toy with spin and momentum.", driveFileId: "13oD3gx-yh81V8Wxv1F5aDnJpDv-HBepx" },
+        { title: "Opposite", description: "A learning game that matches words with their opposites.", driveFileId: "1vqvCqQCT0tAIBwUmqVgAEpdx-LiIfueC" },
+        { title: "Parts of Speech", description: "An English-learning game for identifying parts of speech.", driveFileId: "17IqfYHc0cqAYyXWaxZG1nOySTg06Mi1P" },
+        { title: "Piñata Master", description: "A tap-and-smash game where players break open piñatas.", driveFileId: "12EDrXRxohAus763hODYCGWi8FOSn0UDj" },
+        { title: "Sentences", description: "A word-arrangement game for building correct sentences.", driveFileId: "1-K4XDfWBhZGDGoBoxwdpA0zim-8R7p-7" },
       ],
     },
   ],
