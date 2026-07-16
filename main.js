@@ -122,23 +122,39 @@ function renderWhatIDo() {
 }
 
 /* ---------- Experience timeline ---------- */
+function makeTimelineItem(job) {
+  const item = el("div", "tl-item reveal" + (job.isEducation ? " tl-edu" : ""));
+  item.appendChild(el("span", "tl-dot"));
+  const body = el("div", "tl-body");
+  body.appendChild(el("span", "tl-period", job.period));
+  const head = el("h3", "tl-role");
+  head.appendChild(document.createTextNode(job.role + " "));
+  const org = el("span", "tl-org", "· " + job.org);
+  head.appendChild(org);
+  body.appendChild(head);
+  if (job.blurb && job.blurb !== "Education.") body.appendChild(el("p", "tl-blurb", job.blurb));
+  item.appendChild(body);
+  return item;
+}
+
 function renderTimeline() {
   const tl = $("#timeline");
   if (!tl) return;
-  (SITE.experience || []).forEach((job) => {
-    const item = el("div", "tl-item reveal" + (job.isEducation ? " tl-edu" : ""));
-    item.appendChild(el("span", "tl-dot"));
-    const body = el("div", "tl-body");
-    body.appendChild(el("span", "tl-period", job.period));
-    const head = el("h3", "tl-role");
-    head.appendChild(document.createTextNode(job.role + " "));
-    const org = el("span", "tl-org", "· " + job.org);
-    head.appendChild(org);
-    body.appendChild(head);
-    if (job.blurb && job.blurb !== "Education.") body.appendChild(el("p", "tl-blurb", job.blurb));
-    item.appendChild(body);
-    tl.appendChild(item);
-  });
+  const entries = SITE.experience || [];
+  const jobs = entries.filter((e) => !e.isEducation);
+  const education = entries.filter((e) => e.isEducation);
+
+  jobs.forEach((job) => tl.appendChild(makeTimelineItem(job)));
+
+  // Education gets its own labeled group so it doesn't read as a job.
+  if (education.length) {
+    const edu = $("#education");
+    if (edu) {
+      education.forEach((e) => edu.appendChild(makeTimelineItem(e)));
+    } else {
+      education.forEach((e) => tl.appendChild(makeTimelineItem(e)));
+    }
+  }
 }
 
 /* ---------- Work: category nav + project cards ---------- */
