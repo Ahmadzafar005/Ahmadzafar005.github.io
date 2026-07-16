@@ -14,6 +14,14 @@ const el = (tag, cls, text) => {
 const prefersReducedMotion =
   window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+// Always open at the top: stop the browser from restoring a previous scroll
+// position (mobile browsers do this aggressively on reopen/reload) and drop any
+// stale #hash so it doesn't jump straight to a section like Work on open.
+if ("scrollRestoration" in history) history.scrollRestoration = "manual";
+if (window.location.hash) {
+  history.replaceState(null, "", window.location.pathname + window.location.search);
+}
+
 // Category name -> URL-safe id, e.g. "AR & 3D" -> "ar-3d".
 function slugify(name) {
   return String(name).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
@@ -29,6 +37,9 @@ function runPreloader() {
   const done = () => {
     overlay.classList.add("is-hidden");
     document.body.classList.remove("is-loading");
+    // Re-assert the top once scrolling is unlocked, in case the browser
+    // restored a position or jumped to a stale hash while loading.
+    window.scrollTo(0, 0);
     setTimeout(() => overlay.remove(), 700);
   };
 
@@ -376,6 +387,7 @@ function setupScrollSpy() {
 
 /* ---------- Boot ---------- */
 document.addEventListener("DOMContentLoaded", function () {
+  window.scrollTo(0, 0);
   setupNav();
   setupHero();
   renderAbout();
