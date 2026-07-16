@@ -86,11 +86,19 @@ the same ID but is often greyed out for these files). The **2D and AR videos are
 ### Video thumbnails (`thumbs/`)
 Each video card shows a still **thumbnail + play badge** (facade pattern in `main.js` →
 `createVideoFrame`); the heavy Drive `/preview` iframe loads only when the visitor clicks. The
-thumbnail files live in `thumbs/<FILE_ID>.jpg` — one per video. They are **frames grabbed from the
+thumbnail files live in `thumbs/<FILE_ID>.jpg` — one per video. Most are **frames grabbed from the
 middle of each video** (not Drive's auto first-frame, which was often a splash/permission/menu
-screen). The `<img src>` is derived from `driveFileId`, so **no data.js change is needed** — just
-drop the file in `thumbs/`. If a local file is missing, the card falls back to the live Drive
-thumbnail URL (`https://drive.google.com/thumbnail?id=<FILE_ID>&sz=w1000`) automatically.
+screen); several now use **custom AI-generated key art** instead: both Agelore's Fantasy demos
+(same image), CPR Simulation (VR), and Burger Maker, Cyber Run, Face Filters, Mojo Shooter, and
+Stadion (AR & 3D). The `<img src>` is derived from `driveFileId`, so **no data.js change is
+needed** — just drop the file in `thumbs/`. If a local file is missing, the card falls back to the
+live Drive thumbnail URL (`https://drive.google.com/thumbnail?id=<FILE_ID>&sz=w1000`) automatically.
+
+Install custom key art (any PNG/JPG → card thumbnail; landscape fits best — the card crops
+portrait art to a horizontal center strip via `object-fit: cover`):
+```bash
+ffmpeg -y -v error -i "art.png" -frames:v 1 -q:v 3 -vf "scale='min(1000,iw)':-1" "thumbs/FILE_ID.jpg"
+```
 
 Regenerate a mid-video frame (ffmpeg + ffprobe required; stream-seeks over HTTP, no full download):
 ```bash
@@ -112,7 +120,8 @@ The full batch script used for all 25 is in the session scratchpad (`gen_thumbs.
 - Dark: bg `#08080c`, surface `#12131a`, border `#23232f`, text `#f5f6fa`, muted `#9aa1b0`
 - Accent: violet `#8b5cf6` → `#a855f7` (gradient text, pills, active states, blurred glow blobs)
 - Fonts: **Space Grotesk** (display) + **Inter** (body), via Google Fonts `<link>`
-- Motion: animated preloader, rotating hero title, CSS marquee, IntersectionObserver scroll-reveal
+- Motion: animated preloader, rotating hero title (the leading article `#hero-article` swaps
+  A/An in `main.js` to match each title's first letter — vowel → "An"), CSS marquee, IntersectionObserver scroll-reveal
   (`.reveal` → `.in-view`) and category scroll-spy. All respect `prefers-reduced-motion`.
 - Responsive: mobile-first grids expand at 640/720px breakpoints; a `@media (max-width: 720px)` block
   collapses the top nav into a **hamburger menu** (`.nav-toggle` in `index.html`, toggled by
@@ -129,7 +138,8 @@ What I Do (4 pillars) → Experience + Education → Work (category buttons + vi
 Tech Stack (pills) → Contact → footer.
 
 ## Cache-busting
-`index.html` loads the assets with a version query — `styles.css?v=2`, `data.js?v=2`, `main.js?v=2`.
+`index.html` loads the assets with a version query (e.g. `styles.css?v=3`, `data.js?v=4`, `main.js?v=4`
+— the numbers move independently, check `index.html` for the current ones).
 GitHub Pages serves everything with `Cache-Control: max-age=600`, and mobile browsers hold JS even
 longer, so **bump the `?v=` number in `index.html` whenever you change `styles.css`/`main.js`/`data.js`**
 to force visitors' browsers to fetch the new file.
