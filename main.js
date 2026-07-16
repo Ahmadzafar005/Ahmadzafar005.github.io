@@ -107,16 +107,22 @@ function setupHero() {
   if (pInitials) pInitials.textContent = SITE.initials;
 
   const rotate = $("#hero-rotate");
+  const article = $("#hero-article");
   const titles = SITE.titles || [];
+  const articleFor = (title) => (/^[aeiou]/i.test(title) ? "An" : "A");
+  const setTitle = (title) => {
+    rotate.textContent = title;
+    if (article) article.textContent = articleFor(title);
+  };
   if (rotate && titles.length) {
-    rotate.textContent = titles[0];
+    setTitle(titles[0]);
     if (!prefersReducedMotion && titles.length > 1) {
       let i = 0;
       setInterval(() => {
         rotate.classList.add("swap");
         setTimeout(() => {
           i = (i + 1) % titles.length;
-          rotate.textContent = titles[i];
+          setTitle(titles[i]);
           rotate.classList.remove("swap");
         }, 300);
       }, 2600);
