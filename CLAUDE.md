@@ -86,11 +86,18 @@ the same ID but is often greyed out for these files). The **2D and AR videos are
 ### Video thumbnails (`thumbs/`)
 Each video card shows a still **thumbnail + play badge** (facade pattern in `main.js` →
 `createVideoFrame`); the heavy Drive `/preview` iframe loads only when the visitor clicks. The
-thumbnail files live in `thumbs/<FILE_ID>.jpg` — one per video. Most are **frames grabbed from the
+thumbnail files live in `thumbs/<FILE_ID>.jpg` — one per video. Some are **frames grabbed from the
 middle of each video** (not Drive's auto first-frame, which was often a splash/permission/menu
-screen); several now use **custom AI-generated key art** instead: both Agelore's Fantasy demos
-(same image), CPR Simulation (VR), and Burger Maker, Cyber Run, Face Filters, Mojo Shooter, and
-Stadion (AR & 3D). The `<img src>` is derived from `driveFileId`, so **no data.js change is
+screen); many now use **custom AI-generated key art** instead:
+- **VR:** CPR Simulation, both Agelore's Fantasy demos (same image).
+- **AR & 3D:** Burger Maker, Cyber Run, Face Filters, Mojo Shooter, Stadion, Switch the Lanes,
+  Buildings Models Preview.
+- **Web3 / WebGL:** Gamers Lounge Experience, both Jetpack Hyperleague videos (same image),
+  both Virtua Cardano Island videos (same image).
+- **2D:** all 9 videos (Car Clean Up, Coloring Book, Count to Fill 10, Emoji Bubble, Fidget Spinner,
+  Opposite, Parts of Speech, Piñata Master, Sentences).
+
+The `<img src>` is derived from `driveFileId`, so **no data.js change is
 needed** — just drop the file in `thumbs/`. If a local file is missing, the card falls back to the
 live Drive thumbnail URL (`https://drive.google.com/thumbnail?id=<FILE_ID>&sz=w1000`) automatically.
 
