@@ -164,8 +164,7 @@ const SITE = {
       tag: "Web3 / WebGL",
       tech: ["Unity WebGL", "Web3.js", "Blockchain", "Metaverse"],
       videos: [
-        { title: "Gamers Lounge Experience — 1", description: "A WebGL multiplayer social lounge experience running in the browser.", driveFileId: "1Nn4rTCgyi--D1d7yNoC0Xnc4HGdT743N" },
-        { title: "Gamers Lounge Experience — 2", description: "A second walkthrough of the WebGL social lounge experience.", driveFileId: "1f6qIfr1xJiqdAHXT2_05QvHpHfNWyBff" },
+        { title: "Gamers Lounge Experience", description: "A WebGL multiplayer social lounge experience running in the browser.", driveFileId: "1f6qIfr1xJiqdAHXT2_05QvHpHfNWyBff" },
         { title: "Jetpack Hyperleague — Multiplayer", description: "The multiplayer mode of a WebGL jetpack racing game.", driveFileId: "1HclDpL0mC92loe3GLoejxMkeNnxQH3fL" },
         { title: "Jetpack Hyperleague — Single Player", description: "The single-player mode of the WebGL jetpack racing game.", driveFileId: "1DX7V6WC5ci-qCV_18JsM-Jh925ZU0AVj" },
         { title: "Virtua Metaverse — Cardano Island Land Claim (1)", description: "A Web3 metaverse land-claim flow on the Cardano blockchain.", driveFileId: "1qCfmjTkDBXvA2Xdlmi-n7ZEZLMwRx3p2" },

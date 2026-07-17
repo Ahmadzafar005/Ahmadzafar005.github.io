@@ -47,7 +47,7 @@ SITE = {
   about, aboutStats: [...],   // About Me paragraph + stat tiles
   whatIDo: [{title, blurb, chips[]}],   // 4 pillar cards
   experience: [{period, role, org, blurb, isEducation?}],  // jobs newest-first; isEducation:true → Education group
-  categories: [{name, tag, tech[], videos: [{title, description, driveFileId}]}],  // 25 videos; array order = on-page order
+  categories: [{name, tag, tech[], videos: [{title, description, driveFileId}]}],  // 24 videos; array order = on-page order
   techStack: [...],           // pill grid labels
   contact: {email, phone, location, github, linkedin, resume},
 }
@@ -60,9 +60,9 @@ list; any entry with `isEducation: true` renders in a **separate `#education` li
 Experience `<section>` in `index.html`. So education is data-driven — just set `isEducation: true`.
 
 ## The videos (Work section)
-25 project videos across 4 categories. **On-page order = order of `SITE.categories`** (both the
+24 project videos across 4 categories. **On-page order = order of `SITE.categories`** (both the
 category nav buttons and the sections render from that array). Current order and counts:
-- **VR** (3) · **AR & 3D** (7) · **Web3 / WebGL** (6) · **2D** (9)
+- **VR** (3) · **AR & 3D** (7) · **Web3 / WebGL** (5) · **2D** (9)
 
 Each is a Google Drive file embedded via `https://drive.google.com/file/d/<driveFileId>/preview`
 (handled in `main.js` → `createVideoFrame`). `driveFileId` is the part between `/d/` and `/view`
